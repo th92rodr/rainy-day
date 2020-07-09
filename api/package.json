@@ -1,0 +1,10 @@
+{
+  "name": "rainy-day",
+  "version": "1.0.0",
+  "author": "Thiago Rodrigues",
+  "license": "",
+  "main": "",
+  "scripts": {
+    "build": "tsc"
+  }
+}
