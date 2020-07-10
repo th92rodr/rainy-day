@@ -3,9 +3,11 @@
   "version": "1.0.0",
   "author": "Thiago Rodrigues",
   "license": "",
-  "main": "",
+  "main": "src/server.ts",
   "scripts": {
     "build": "tsc",
+    "start": "node dist/server.js",
+    "dev:run": "ts-node-dev --transpileOnly --ignore node_modules/ src/server.ts",
     "pretty": "prettier --config .prettierrc.json --write \"./src/*.{js, ts}\""
   },
   "lint-staged": {
