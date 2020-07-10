@@ -8,7 +8,14 @@
     "build": "tsc",
     "start": "node dist/server.js",
     "dev:run": "ts-node-dev --transpileOnly --ignore node_modules/ src/server.ts",
-    "pretty": "prettier --config .prettierrc.json --write \"./src/*.{js, ts}\""
+    "pretty": "prettier --config .prettierrc.json --write \"./src/*.{js, ts}\"",
+    "knex:migration": "knex migrate:list",
+    "knex:migration:create": "knex migrate:make -x ts",
+    "knex:migration:run": "knex migrate:latest",
+    "knex:migration:rollback": "knex migrate:rollback",
+    "knex:migration:rollback-all": "knex migrate:rollback --all",
+    "knex:seed:create": "knex seed:make",
+    "knex:seed:run": "knex seed:run"
   },
   "lint-staged": {
     "./src/*.{js, ts}": [
