@@ -5,6 +5,26 @@
   "license": "",
   "main": "",
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "pretty": "prettier --config .prettierrc.json --write \"./src/*.{js, ts}\""
+  },
+  "lint-staged": {
+    "./src/*.{js, ts}": [
+      "yarn pretty"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^3.6.0",
+    "@typescript-eslint/parser": "^3.6.0",
+    "eslint": "6.8.0",
+    "eslint-import-resolver-typescript": "^2.0.0",
+    "husky": "^4.2.5",
+    "lint-staged": "^10.2.11",
+    "prettier": "^2.0.5"
   }
 }
