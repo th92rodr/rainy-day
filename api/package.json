@@ -7,6 +7,8 @@
   "scripts": {
     "build": "tsc",
     "start": "node dist/server.js",
+    "test": "jest",
+    "coverage": "jest --coverage",
     "dev:run": "ts-node-dev --transpileOnly --ignore node_modules/ src/server.ts",
     "pretty": "prettier --config .prettierrc.json --write \"./src/*.{js, ts}\"",
     "knex:migration": "knex migrate:list",
