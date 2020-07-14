@@ -3,7 +3,14 @@ import axios from 'axios';
 import OpenWeatherConfig from '../config/openWeather';
 
 interface Request {
-  city: string;
+  search: string;
+
+  city?: string;
+  state?: string;
+  country?: string;
+
+  latitude?: number;
+  longitude?: number;
 }
 
 interface Response {
@@ -88,8 +95,8 @@ interface OpenWeatherResponse {
 }
 
 export default class GetCurrentWeatherService {
-  public async execute({ city }: Request): Promise<Response> {
-    const openWeatherURL = this.getOpenWeatherApiUrl(city);
+  public async execute(request: Request): Promise<Response> {
+    const openWeatherURL = this.getOpenWeatherApiUrl(request);
 
     const response: OpenWeatherResponse = await axios.get(openWeatherURL);
 
@@ -100,11 +107,21 @@ export default class GetCurrentWeatherService {
     return this.prepareResponse(response);
   }
 
-  private getOpenWeatherApiUrl(cityName: string): string {
+  private getOpenWeatherApiUrl(request: Request): string {
     const { APIKey } = OpenWeatherConfig;
     const languageCode = this.getDesiredLanguage();
 
-    return `http://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=metric&appid=${APIKey}&lang=${languageCode}`;
+    if (request.search === 'address') {
+      const { city, state, country } = request;
+
+      return `http://api.openweathermap.org/data/2.5/weather?q=${city},${state},${country}&units=metric&appid=${APIKey}&lang=${languageCode}`;
+    } else if (request.search === 'coords') {
+      const { latitude, longitude } = request;
+
+      return `http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&appid=${APIKey}&lang=${languageCode}`;
+    } else {
+      throw new Error('Invalid search type.');
+    }
   }
 
   private getDesiredLanguage(): string {
