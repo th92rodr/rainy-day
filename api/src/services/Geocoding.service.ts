@@ -32,6 +32,10 @@ export default class GeocodingService {
 
     const geoCoderResponse = await geocoder.geocode(address);
 
+    if (geoCoderResponse.length == 0) {
+      throw new Error('No coordinates match this address.');
+    }
+
     return this.prepareResponse(geoCoderResponse);
   }
 
